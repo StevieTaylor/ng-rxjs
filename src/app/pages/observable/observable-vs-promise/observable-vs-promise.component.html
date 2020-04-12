@@ -1,0 +1,31 @@
+<nz-descriptions nzTitle="Observable vs Promise" nzBordered [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }">
+    <nz-descriptions-item nzTitle="Promise">
+        1.返回单个值
+        <br />
+        2.不可以取消
+        <br />
+        3.使用try/catch和async/await来实现代码可读性
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Observable">
+        1.在一段时间内处理多个值
+        <br />
+        2.可以取消(当一个http请求或其他异步操作不需要时)
+        <br />
+        3.支持各种工具函数操作符:map, filter, reduce等等
+        <br />
+    </nz-descriptions-item>
+</nz-descriptions>
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" style="margin-top:1rem">
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="usePromise()">执行Promise</button>
+    </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="ObservableUnsubscribe()">Observable可以取消</button>
+    </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="ObservableMulticast()">Observable可以多播</button>
+    </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="ObservableUseOperators()">Observable使用操作符</button>
+    </div>
+</div>
