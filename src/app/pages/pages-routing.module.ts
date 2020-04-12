@@ -8,7 +8,8 @@ const pageRoutes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-      { path: 'observable', loadChildren: () => import('./observable/observable.module').then(m => m.ObservableModule) }
+      { path: 'observable', loadChildren: () => import('./observable/observable.module').then(m => m.ObservableModule) },
+      { path: 'operators', loadChildren: () => import('./operators/operators.module').then(m => m.OperatorsModule) }
     ]
   },
   { path: '**', redirectTo: 'exception/404' }
