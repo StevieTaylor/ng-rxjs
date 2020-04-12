@@ -15,7 +15,8 @@ export class ObservableVsPromiseComponent implements OnInit {
 
   }
 
-  usePromise() {
+  // Promise不可取消
+  Promise() {
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('Promise success after 2 second');
@@ -24,7 +25,33 @@ export class ObservableVsPromiseComponent implements OnInit {
     promise.then((value) => console.log(value));
   }
 
-  // 可以取消
+  // Promise单播
+  PromiseUnicast() {
+    let count = 1;
+    const promise = new Promise((resolve, reject) => {
+      setInterval(() => {
+        resolve(count++);
+      }, 1000);
+    });
+    promise.then((value) => console.log('Promise send:', value));
+  }
+
+  // Promise使用catch捕获错误
+  PromiseUseCatch() {
+    const promise = new Promise((resolve, reject) => {
+      reject('Promise failed');
+      setTimeout(() => {
+        resolve('Promise failed after 2 second'); // 不执行
+      }, 2000);
+    });
+    promise.then(
+      (value) => console.log(value)
+    ).catch((error) => {
+      console.log('error:', error);
+    });
+  }
+
+  // Observable可以取消
   ObservableUnsubscribe() {
     const observable$ = new Observable((observer) => {
       const timer = setTimeout(() => {
@@ -34,12 +61,12 @@ export class ObservableVsPromiseComponent implements OnInit {
     });
     const subscription = observable$.subscribe((value) => console.log(value));
     setTimeout(() => {
-      console.log('在observable执行的中途取消');
+      console.log('Observable cancel execution');
       subscription.unsubscribe();
     }, 1000);
   }
 
-  // 多播
+  // Observable多播
   ObservableMulticast() {
     const observable$ = new Observable((observer) => {
       let count = 1;
@@ -48,13 +75,13 @@ export class ObservableVsPromiseComponent implements OnInit {
       }, 1000);
       return () => clearInterval(timer);
     });
-    const subscription = observable$.subscribe((value) => console.log('send: ', value));
+    const subscription = observable$.subscribe((value) => console.log('Observable send: ', value));
     setTimeout(() => {
       subscription.unsubscribe();
     }, 10000);
   }
 
-  // 使用各种工具函数操作符
+  // Observable使用各种工具函数操作符
   ObservableUseOperators() {
     const observable$ = new Observable((observer) => {
       let count = 1;

@@ -17,15 +17,23 @@
 </nz-descriptions>
 <div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" style="margin-top:1rem">
     <div nz-col>
-        <button nz-button nzType="primary" (click)="usePromise()">执行Promise</button>
+        <button nz-button nzType="primary" (click)="Promise()">Promise不可取消</button>
     </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="PromiseUnicast()">Promise单播</button>
+    </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="PromiseUseCatch()">Promise单向性</button>
+    </div>
+</div>
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" style="margin-top:1rem">
     <div nz-col>
         <button nz-button nzType="primary" (click)="ObservableUnsubscribe()">Observable可以取消</button>
     </div>
     <div nz-col>
-        <button nz-button nzType="primary" (click)="ObservableMulticast()">Observable可以多播</button>
+        <button nz-button nzType="primary" (click)="ObservableMulticast()">Observable多播</button>
     </div>
     <div nz-col>
-        <button nz-button nzType="primary" (click)="ObservableUseOperators()">Observable使用操作符</button>
+        <button nz-button nzType="primary" (click)="ObservableUseOperators()">Observable使用各种操作符</button>
     </div>
 </div>
