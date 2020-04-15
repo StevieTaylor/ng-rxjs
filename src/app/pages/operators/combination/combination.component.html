@@ -1,21 +1,63 @@
 <div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start">
     <div nz-col>
-        <button nz-button nzType="primary" (click)="useMerge()">merge</button>
+        <button nz-button nzType="primary" (click)="useMerge()">*merge</button>
     </div>
 </div>
+
 <div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
     <div nz-col>
-        <button nz-button nzType="primary" (click)="useConcat()">concat</button>
+        <button nz-button nzType="primary" (click)="useConcat()">*concat</button>
     </div>
     <div nz-col>
-        <button nz-button nzType="primary" (click)="concatMessage()">concat message</button>
+        <button nz-button nzType="primary" (click)="concatMessage()">concat 显示倒计时</button>
     </div>
     <div nz-col>
         <div id="message"></div>
     </div>
 </div>
+
 <div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
     <div nz-col>
-        <button nz-button nzType="primary" (click)="useCombineLatest()">combineLatest</button>
+        <button nz-button nzType="primary" (click)="useZip()">zip</button>
+    </div>
+</div>
+
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="useStartWith()">*startWith</button>
+    </div>
+</div>
+
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="useCombineLatest()">*combineLatest</button>
+    </div>
+    <div nz-col>
+        <button nz-button nzType="primary" (click)="calculateBMI()">combineLatest 计算BMI</button>
+    </div>
+</div>
+
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
+    <div nz-col>
+        <button id="btn1" nz-button nzType="default">Button1</button>
+    </div>
+    <div nz-col>
+        Button1 clicked count: <span id="btn1Count"></span>
+    </div>
+</div>
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
+    <div nz-col>
+        <button id="btn2" nz-button nzType="default">Button2</button>
+    </div>
+    <div nz-col>
+        Button2 clicked count: <span id="btn2Count"></span>
+    </div>
+</div>
+<div nz-row nzAlign="middle" nzType="flex" nzGutter="8" nzJustify="start" class="margin_top_8">
+    <div nz-col>
+        <button nz-button nzType="default" style="width: 81px;">Total</button>
+    </div>
+    <div nz-col>
+        Total clicked count: <span id="totalCount"></span>
     </div>
 </div>
