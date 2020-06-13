@@ -13,7 +13,8 @@
             <td>{{ data.description }}</td>
             <td>{{ data.signature }}</td>
             <td>
-                <button nz-button nzType="primary" (click)="useExample(data.name)" id="{{ data.name }}">
+                <button nz-button nzType="primary" (click)="useExample(data.name)" id="{{ data.name }}" nz-popover
+                    nzType="primary" nzPopoverTitle="{{ data.tip?'using tips':'' }}" nzPopoverContent="{{ data.tip }}">
                     use {{ data.name }}
                 </button>
             </td>

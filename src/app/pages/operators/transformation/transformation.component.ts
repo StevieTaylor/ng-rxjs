@@ -27,19 +27,22 @@ export class TransformationComponent implements OnInit {
       key: '3',
       name: this.operators[2],
       signature: 'mergeMap(project: function: Observable, resultSelector?: function: any, concurrent?: number): Observable',
-      description: '映射成 observable 并发出值'
+      description: '映射成 observable 并发出值',
+      tip: '如果只想将数据平整为一个Observable，则使用mergeMap'
     },
     {
       key: '4',
       name: this.operators[3],
       signature: 'switchMap(project: (value: T, index: number) => O): OperatorFunction): Observable',
-      description: '映射成 observable，完成前一个内部 observable，发出值'
+      description: '映射成 observable，完成前一个内部 observable，发出值',
+      tip: '如果需要将数据平整为一个Observable，但仅需要最新值，则使用switchMap'
     },
     {
       key: '5',
       name: this.operators[4],
       signature: 'concatMap(project: function, resultSelector?: function): Observable',
-      description: '将值映射成内部 observable，并按顺序订阅和发出'
+      description: '将值映射成内部 observable，并按顺序订阅和发出',
+      tip: '如果需要将数据平整为一个Observable，且需要按序发出，则使用concatMap'
     },
     {
       key: '6',
