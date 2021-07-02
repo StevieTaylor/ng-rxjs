@@ -6,13 +6,15 @@ import { CreationComponent } from './creation/creation.component';
 import { CombinationComponent } from './combination/combination.component';
 import { FilteringComponent } from './filtering/filtering.component';
 import { TransformationComponent } from './transformation/transformation.component';
+import { UtilityComponent } from './utility/utility.component';
 
 const COMPONENTS = [
   OperatorsComponent,
   CreationComponent,
   CombinationComponent,
   FilteringComponent,
-  TransformationComponent
+  TransformationComponent,
+  UtilityComponent
 ];
 
 @NgModule({
