@@ -4,43 +4,21 @@
         <div class="sidebar-logo">
             <a href="https://ng.ant.design/" target="_blank">
                 <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-                <h1>Angular Rxjs</h1>
+                <h1>{{ title }}</h1>
             </a>
         </div>
-        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" nzSelectable="true">
-            <li nz-menu-item routerLink="/home">
-                <i nz-icon nzType="home"></i>
-                <span>首页</span>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" nzSelectable="true"
+            *ngFor="let menu of menus">
+            <li nz-menu-item [routerLink]="menu.link" nzMatchRouter [nzMatchRouterExact]="true" *ngIf="!menu.children">
+                <i nz-icon [nzType]="menu.icon"></i>
+                <span>{{ menu.title }}</span>
             </li>
-            <li nz-submenu nzTitle="Observable" nzIcon="appstore" [(nzOpen)]="isSubmenuOpen">
-                <ul>
-                    <li nz-menu-item nzMatchRouter routerLink="/observable/example">
-                        <a>Observable</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/observable/observable-vs-promise">
-                        <a>Observable vs Promise</a>
-                    </li>
-                </ul>
-            </li>
-            <li nz-submenu nzTitle="Operators" nzIcon="appstore" [(nzOpen)]="isSubmenuOpen">
-                <ul>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/category">
-                        <a>Category</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/creation">
-                        <a>Creation</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/combination">
-                        <a>Combination</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/filtering">
-                        <a>Filtering</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/transformation">
-                        <a>Transformation</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter routerLink="/operators/utility">
-                        <a>Utility</a>
+
+            <li nz-submenu [nzTitle]="menu.title" [nzIcon]="menu.icon" *ngIf="menu.children" [(nzOpen)]="menu.isOpen"
+                (nzOpenChange)="handleMenuChange(menu.title)">
+                <ul *ngFor="let submenu of menu.children">
+                    <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true" [routerLink]="menu.link + submenu.link">
+                        <a>{{ submenu.title }}</a>
                     </li>
                 </ul>
             </li>
