@@ -1,5 +1,5 @@
 // angular
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,10 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { IconsProviderModule } from './icons-provider/icons-provider.module';
 
+// pipes
+import { DataNullPipe } from './pipes/data-null.pipe';
+
 const THIRDPARTYMODULE = [NgZorroAntdModule, IconsProviderModule];
+const PIPES = [DataNullPipe];
 
 @NgModule({
-  declarations: [],
+  declarations: [...PIPES],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,7 +29,8 @@ const THIRDPARTYMODULE = [NgZorroAntdModule, IconsProviderModule];
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ...THIRDPARTYMODULE
+    ...THIRDPARTYMODULE,
+    ...PIPES
   ]
 })
 export class SharedModule { }
