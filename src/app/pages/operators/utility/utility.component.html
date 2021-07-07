@@ -1,1 +1,31 @@
-<p>utility works!</p>
+<nz-table #basicTable [nzData]="utilityOperators">
+  <thead>
+    <tr>
+      <th [nzWidth]="'10%'">名称</th>
+      <th [nzWidth]="'35%'">描述</th>
+      <th [nzWidth]="'45%'">签名</th>
+      <th [nzWidth]="'10%'">案例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name | dataNull }}</td>
+      <td>{{ data.description | dataNull }}</td>
+      <td>{{ data.signature | dataNull }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="primary"
+          (click)="useOperators(data.name)"
+          id="{{ data.name }}"
+          nz-popover
+          nzType="primary"
+          nzPopoverTitle="{{ data.tip ? 'using tips' : '' }}"
+          nzPopoverContent="{{ data.tip }}"
+        >
+          use {{ data.name }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
