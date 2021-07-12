@@ -7,6 +7,7 @@ import { CombinationComponent } from './combination/combination.component';
 import { FilteringComponent } from './filtering/filtering.component';
 import { TransformationComponent } from './transformation/transformation.component';
 import { UtilityComponent } from './utility/utility.component';
+import { ErrorHandlingComponent } from './error-handling/error-handling.component';
 
 const COMPONENTS = [
   OperatorsComponent,
@@ -14,7 +15,8 @@ const COMPONENTS = [
   CombinationComponent,
   FilteringComponent,
   TransformationComponent,
-  UtilityComponent
+  UtilityComponent,
+  ErrorHandlingComponent
 ];
 
 @NgModule({

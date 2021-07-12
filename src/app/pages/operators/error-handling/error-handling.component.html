@@ -1,0 +1,24 @@
+<nz-table #errorHandlingTable [nzData]="operatorList">
+    <thead>
+        <tr>
+            <th [nzWidth]="'10%'">名称</th>
+            <th [nzWidth]="'35%'">描述</th>
+            <th [nzWidth]="'45%'">签名</th>
+            <th [nzWidth]="'10%'">案例</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let operator of errorHandlingTable.data">
+            <td>{{ operator.name }}</td>
+            <td>{{ operator.description }}</td>
+            <td>{{ operator.signature }}</td>
+            <td>
+                <button nz-button nzType="primary" (click)="useOperators(operator.name)" id="{{ operator.name }}"
+                    nz-popover nzType="primary" nzPopoverTitle="{{ operator.tip?'using tips':'' }}"
+                    nzPopoverContent="{{ operator.tip }}">
+                    {{ operator.name }}
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
