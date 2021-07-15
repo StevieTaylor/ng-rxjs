@@ -1,7 +1,7 @@
 /*
  * @Author: Stevie
  * @Date: 2021-07-02 14:44:35
- * @LastEditTime: 2021-07-15 17:41:16
+ * @LastEditTime: 2021-07-15 18:34:42
  * @LastEditors: Stevie
  * @Description:
  */
@@ -70,19 +70,19 @@ export class ObservableComponent implements OnInit, OnDestroy {
     observable.subscribe(observer);
   }
 
-  useSubjectAsObserver() {
-    const source = from([1, 2, 3]);
+  useSubject() {
     const subject = new Subject<number>();
+    // - observable
     subject.subscribe((v) => {
       console.log("subscriber A: ", v);
     });
     subject.subscribe((v) => {
       console.log("subscriber B: ", v);
     });
+    const source = from([1, 2, 3]);
+    // - observer
     source.subscribe(subject);
   }
-
-  useSubjectAsObservable() { }
 
   useSubcription() {
     this.intervalObs = new Observable((observer) => {
@@ -100,7 +100,9 @@ export class ObservableComponent implements OnInit, OnDestroy {
   }
 
   useOperators() {
+    // - 输入流
     const clicks$ = fromEvent(document, "click");
+    // - 输出流
     const source = clicks$.pipe(
       map((event: MouseEvent) => event.clientX),
       debounceTime(500)
