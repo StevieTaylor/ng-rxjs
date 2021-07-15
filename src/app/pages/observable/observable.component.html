@@ -1,1 +1,15 @@
-<p>observable works!</p>
+<div class="observable">
+  <nz-row>
+    <button nz-button nzType="primary" (click)="useObservable()">Observable</button>
+  </nz-row>
+  <nz-row>
+    <button nz-button nzType="primary" (click)="useObserver()">Observer</button>
+  </nz-row>
+  <nz-row>
+    <button nz-button nzType="primary" (click)="useSubject()">Subject</button>
+  </nz-row>
+  <nz-row>
+    <button nz-button nzType="primary" (click)="useSubcription()">Subcription</button>
+    <button nz-button nzType="default" (click)="cancelSubscribe()">cancel subscribe</button>
+  </nz-row>
+</div>

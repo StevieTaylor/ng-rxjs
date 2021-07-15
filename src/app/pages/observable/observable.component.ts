@@ -1,36 +1,84 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, observable } from 'rxjs';
-import { of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+/*
+ * @Author: Stevie
+ * @Date: 2021-07-02 14:44:35
+ * @LastEditTime: 2021-07-15 16:06:41
+ * @LastEditors: Stevie
+ * @Description:
+ */
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Observable, Observer, Subscriber, Subscription } from "rxjs";
+import { filter, map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-observable',
-  templateUrl: './observable.component.html',
-  styleUrls: ['./observable.component.less']
+  selector: "app-observable",
+  templateUrl: "./observable.component.html",
+  styleUrls: ["./observable.component.less"],
 })
-export class ObservableComponent implements OnInit {
+export class ObservableComponent implements OnInit, OnDestroy {
+  private intervalObs: Observable<unknown>;
+  private intervalSubscription: Subscription;
 
   constructor() { }
 
-  ngOnInit() {
-    this.createObservable();
-  }
+  ngOnInit() { }
 
-  createObservable() {
-    const obs = new Observable((observer) => {
-      observer.next(1);
+  useObservable() {
+    const producer = (observer: any) => {
+      observer.next(1); // resolve(1) 
       observer.next(2);
       setTimeout(() => {
         observer.next(3);
-        observer.complete();
-      }, 2000);
+      }, 1000);
+    };
+    const observable = new Observable(producer);
+
+    observable.subscribe((value) => {
+      console.log(value);
     });
-    console.log('subscribe begin');
-    obs.subscribe({
-      next: (data) => console.log('output data:', data),
-      error: (error) => console.log('error:', error),
-      complete: () => console.log('done')
+  }
+
+  useObserver() {
+    const observable = new Observable((observer: Subscriber<unknown>) => {
+      observer.next(1);
+      observer.next(2);
+      // - 注: 不管是error, 还是complete, 都会中断observable的执行
+      observer.error(new Error("some error occurred"));
+      observer.complete();
     });
-    console.log('subscribe end');
+
+    const observer: Observer<unknown> = {
+      next: (value) => {
+        console.log(value);
+      },
+      error: (error: Error) => {
+        console.error(error.message);
+      },
+      complete: () => {
+        console.log("complete");
+      },
+    };
+
+    observable.subscribe(observer);
+  }
+
+  useSubject() { }
+
+  useSubcription() {
+    this.intervalObs = new Observable((observer) => {
+      setInterval(() => {
+        observer.next(new Date().toUTCString());
+      }, 1000);
+    });
+    this.intervalSubscription = this.intervalObs.subscribe((value) =>
+      console.log(value)
+    );
+  }
+
+  cancelSubscribe() {
+    this.intervalSubscription.unsubscribe();
+  }
+
+  ngOnDestroy() {
+    this.intervalSubscription.unsubscribe();
   }
 }
