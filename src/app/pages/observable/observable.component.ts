@@ -1,7 +1,7 @@
 /*
  * @Author: Stevie
  * @Date: 2021-07-02 14:44:35
- * @LastEditTime: 2021-07-15 18:34:42
+ * @LastEditTime: 2021-07-15 21:01:23
  * @LastEditors: Stevie
  * @Description:
  */
@@ -51,11 +51,12 @@ export class ObservableComponent implements OnInit, OnDestroy {
       observer.next(1);
       observer.next(2);
       // - 注: 不管是error, 还是complete, 都会中断observable的执行
-      observer.error(new Error("some error occurred"));
       observer.complete();
+      observer.next(3);
+      observer.error(new Error("some error occurred"));
     });
 
-    const observer: Observer<unknown> = {
+    const observer: Observer<string> = {
       next: (value) => {
         console.log(value);
       },
@@ -79,7 +80,12 @@ export class ObservableComponent implements OnInit, OnDestroy {
     subject.subscribe((v) => {
       console.log("subscriber B: ", v);
     });
-    const source = from([1, 2, 3]);
+    subject.subscribe((v) => {
+      console.log("subscriber C: ", v);
+    });
+
+    const source = from([1, 2, 3]); // observable
+    console.log("source :>> ", source);
     // - observer
     source.subscribe(subject);
   }
@@ -120,9 +126,10 @@ export class ObservableComponent implements OnInit, OnDestroy {
 
     const source = observable.pipe(
       observeOn(asyncScheduler) // - 异步调度器
-    )
+    );
 
     console.log("订阅前");
+
     source.subscribe(
       (data) => {
         console.log("data:", data);
@@ -134,10 +141,11 @@ export class ObservableComponent implements OnInit, OnDestroy {
         console.log("subscribe complete");
       }
     );
+
     console.log("订阅后");
   }
 
   ngOnDestroy() {
-    this.intervalSubscription.unsubscribe();
+
   }
 }
