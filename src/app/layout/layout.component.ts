@@ -61,6 +61,10 @@ export class LayoutComponent implements OnInit {
           title: "Utility",
           link: "/utility",
         },
+        {
+          title: "Error Handling",
+          link: "/error-handling",
+        },
       ],
     },
   ];

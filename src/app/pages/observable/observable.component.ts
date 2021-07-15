@@ -1,13 +1,22 @@
 /*
  * @Author: Stevie
  * @Date: 2021-07-02 14:44:35
- * @LastEditTime: 2021-07-15 16:06:41
+ * @LastEditTime: 2021-07-15 17:41:16
  * @LastEditors: Stevie
  * @Description:
  */
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Observer, Subscriber, Subscription } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import {
+  Observable,
+  Observer,
+  Subscriber,
+  Subscription,
+  from,
+  fromEvent,
+  Subject,
+  asyncScheduler,
+} from "rxjs";
+import { map, debounceTime, observeOn } from "rxjs/operators";
 
 @Component({
   selector: "app-observable",
@@ -24,7 +33,7 @@ export class ObservableComponent implements OnInit, OnDestroy {
 
   useObservable() {
     const producer = (observer: any) => {
-      observer.next(1); // resolve(1) 
+      observer.next(1); // resolve(1)
       observer.next(2);
       setTimeout(() => {
         observer.next(3);
@@ -61,7 +70,19 @@ export class ObservableComponent implements OnInit, OnDestroy {
     observable.subscribe(observer);
   }
 
-  useSubject() { }
+  useSubjectAsObserver() {
+    const source = from([1, 2, 3]);
+    const subject = new Subject<number>();
+    subject.subscribe((v) => {
+      console.log("subscriber A: ", v);
+    });
+    subject.subscribe((v) => {
+      console.log("subscriber B: ", v);
+    });
+    source.subscribe(subject);
+  }
+
+  useSubjectAsObservable() { }
 
   useSubcription() {
     this.intervalObs = new Observable((observer) => {
@@ -76,6 +97,42 @@ export class ObservableComponent implements OnInit, OnDestroy {
 
   cancelSubscribe() {
     this.intervalSubscription.unsubscribe();
+  }
+
+  useOperators() {
+    const clicks$ = fromEvent(document, "click");
+    const source = clicks$.pipe(
+      map((event: MouseEvent) => event.clientX),
+      debounceTime(500)
+    );
+    source.subscribe((v) => console.log("clientX:", v));
+  }
+
+  useScheduler() {
+    const observable = new Observable((observer) => {
+      observer.next(1);
+      observer.next(2);
+      observer.next(3);
+      observer.complete();
+    });
+
+    const source = observable.pipe(
+      observeOn(asyncScheduler) // - 异步调度器
+    )
+
+    console.log("订阅前");
+    source.subscribe(
+      (data) => {
+        console.log("data:", data);
+      },
+      (error) => {
+        console.error("error:", error);
+      },
+      () => {
+        console.log("subscribe complete");
+      }
+    );
+    console.log("订阅后");
   }
 
   ngOnDestroy() {
